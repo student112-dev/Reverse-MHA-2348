@@ -2,29 +2,21 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-
 import pandas as pd
 import tabula
 
-# Step 2 : Load the Data 
-# Pdf path and Read 
-pdf_path = "/workspaces/Reverse-MHA-2348/HIRAD_Loans_Database.pdf"
-# Extract all tables from PDF
+# STEP 2: Dataset Upload 
+pdf_path = input("Enter the path to the PDF file: ").strip()
 pdf_tables = tabula.read_pdf(pdf_path, pages='all', multiple_tables=True)
 
-# Print number of tables extracted
 print(f"Total tables extracted: {len(pdf_tables)}")
 pdf_df = pdf_tables[0]
 print("\nExtracted PDF Table Preview:")
 print(pdf_df.head())
-
-# Excel Path and Read
-excel_path = "/workspaces/Reverse-MHA-2348/HIRAD_Loans_Database.xlsx"
+excel_path = input("Enter the path to the Excel file: ").strip()
 excel_df = pd.read_excel(excel_path, sheet_name='Table 1')
-
 print("\nExcel Table Preview:")
 print(excel_df.head())
-
 
 #  STEP 3: Merge Datasets
 merged_df = pd.merge(excel_df, pdf_df, on='Loan_ID', how='inner')
